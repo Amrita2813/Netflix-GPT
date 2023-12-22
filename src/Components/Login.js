@@ -1,21 +1,33 @@
 import Header from './Header';
-import {useState} from 'react';
+import {useState, useRef} from 'react';
+import {checkValidData} from './../Utils/validate';
 
 const Login = () => {
+	const name = useRef(null);
+	const email = useRef(null);
+	const password = useRef(null);
+
 	const [isSignIn, setIsSignIn] = useState(true);
+	const [errorMessage, setErrorMessage] = useState(null);
 
 	const toggleSignInFormHandler = () => {
 		setIsSignIn(!isSignIn);
+	};
+
+	const formSubmitHandler = () => {
+		const error = checkValidData(
+			name?.current?.value,
+			email.current.value,
+			password.current.value
+		);
+		setErrorMessage(error);
 	};
 
 	return (
 		<div>
 			<Header />
 			<div className="absolute">
-				<img
-					src="https://assets.nflxext.com/ffe/siteui/vlv3/ca6a7616-0acb-4bc5-be25-c4deef0419a7/c5af601a-6657-4531-8f82-22e629a3795e/IN-en-20231211-popsignuptwoweeks-perspective_alpha_website_large.jpg"
-					alt="bg-img"
-				/>
+				<img alt="bg-img" src="%PUBLIC_URL%/images/hero-img.jpg" />
 			</div>
 
 			<form className="bg-black p-12 absolute w-3/12 my-36 mx-auto right-0 left-0 text-white bg-opacity-75 rounded-md">
@@ -23,6 +35,7 @@ const Login = () => {
 				{!isSignIn && (
 					<input
 						type="text"
+						ref={name}
 						placeholder="Full Name"
 						className="p-4 m-4  w-full bg-gray-500 rounded-md"
 					/>
@@ -30,15 +43,22 @@ const Login = () => {
 
 				<input
 					type="text"
+					ref={email}
 					placeholder="Email Address"
 					className="p-4 m-4  w-full bg-gray-500 rounded-md"
 				/>
 				<input
 					type="password"
+					ref={password}
 					placeholder="Enter Password"
 					className="p-4 m-4 w-full bg-gray-500 rounded-md"
 				/>
-				<button className="p-4 m-4 bg-red-700 w-full rounded-lg">
+				<p className="text-red-600 p-4 font-bold text-lg">{errorMessage}</p>
+				<button
+					className="p-4 m-4 bg-red-700 w-full rounded-lg"
+					onClick={formSubmitHandler}
+					type="button"
+				>
 					{isSignIn ? 'Sign In' : 'Sign Up'}
 				</button>
 				<p className="p-2 m-4" onClick={toggleSignInFormHandler}>
