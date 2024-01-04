@@ -2,6 +2,16 @@ import Header from './Header';
 import {useState, useRef} from 'react';
 import {checkValidData} from './../Utils/validate';
 
+import {
+	createUserWithEmailAndPassword,
+	signInWithEmailAndPassword,
+	updateProfile,
+} from 'firebase/auth';
+import {auth} from '../Utils/firebase';
+import {useNavigate} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
+import {addUser} from '../Utils/userSlice';
+
 const Login = () => {
 	const name = useRef(null);
 	const email = useRef(null);
@@ -9,6 +19,8 @@ const Login = () => {
 
 	const [isSignIn, setIsSignIn] = useState(true);
 	const [errorMessage, setErrorMessage] = useState(null);
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	const toggleSignInFormHandler = () => {
 		setIsSignIn(!isSignIn);
@@ -21,13 +33,69 @@ const Login = () => {
 			password.current.value
 		);
 		setErrorMessage(error);
+		if (error) return;
+
+		if (isSignIn) {
+			// Sign in logic
+			signInWithEmailAndPassword(auth, email.current.value, password.current.value)
+				.then((userCredential) => {
+					// Signed in
+					const user = userCredential.user;
+					navigate('/browse');
+					console.log(user);
+				})
+				.catch((error) => {
+					const errorCode = error.code;
+					const errorMessage = error.message;
+					setErrorMessage(errorCode + '-' + errorMessage);
+				});
+		} else {
+			// sign up logic
+			createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
+				.then((userCredential) => {
+					// Signed up
+					const user = userCredential.user;
+					updateProfile(auth.currentUser, {
+						displayName: name.current.value,
+						photoURL: 'https://example.com/jane-q-user/profile.jpg',
+					})
+						.then(() => {
+							// Profile updated!
+							const {uid, email, displayName} = auth.currentUser;
+							dispatch(
+								addUser({
+									uid: uid,
+									email: email,
+									displayName: displayName,
+								})
+							);
+							// ...
+						})
+						.catch((error) => {
+							// An error occurred
+							// ...
+						});
+					navigate('/browse');
+					console.log(user);
+				})
+				.catch((error) => {
+					const errorCode = error.code;
+					const errorMessage = error.message;
+					setErrorMessage(errorCode + '-' + errorMessage);
+
+					// ..
+				});
+		}
 	};
 
 	return (
 		<div>
 			<Header />
 			<div className="absolute">
-				<img alt="bg-img" src="%PUBLIC_URL%/images/hero-img.jpg" />
+				<img
+					src="https://assets.nflxext.com/ffe/siteui/vlv3/563192ea-ac0e-4906-a865-ba9899ffafad/6b2842d1-2339-4f08-84f6-148e9fcbe01b/IN-en-20231218-popsignuptwoweeks-perspective_alpha_website_small.jpg"
+					alt="bg-img"
+				/>
 			</div>
 
 			<form className="bg-black p-12 absolute w-3/12 my-36 mx-auto right-0 left-0 text-white bg-opacity-75 rounded-md">
