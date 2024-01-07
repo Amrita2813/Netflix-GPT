@@ -1,16 +1,15 @@
 import Header from './Header';
 import {useState, useRef} from 'react';
-import {checkValidData} from './../Utils/validate';
+import {checkValidData} from '../utils/validate';
 
 import {
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
 	updateProfile,
 } from 'firebase/auth';
-import {auth} from '../Utils/firebase';
-import {useNavigate} from 'react-router-dom';
+import {auth} from '../utils/firebase';
 import {useDispatch} from 'react-redux';
-import {addUser} from '../Utils/userSlice';
+import {addUser} from '../utils/userSlice';
 
 const Login = () => {
 	const name = useRef(null);
@@ -19,7 +18,6 @@ const Login = () => {
 
 	const [isSignIn, setIsSignIn] = useState(true);
 	const [errorMessage, setErrorMessage] = useState(null);
-	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
 	const toggleSignInFormHandler = () => {
@@ -41,8 +39,6 @@ const Login = () => {
 				.then((userCredential) => {
 					// Signed in
 					const user = userCredential.user;
-					navigate('/browse');
-					console.log(user);
 				})
 				.catch((error) => {
 					const errorCode = error.code;
@@ -54,7 +50,6 @@ const Login = () => {
 			createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
 				.then((userCredential) => {
 					// Signed up
-					const user = userCredential.user;
 					updateProfile(auth.currentUser, {
 						displayName: name.current.value,
 						photoURL: 'https://example.com/jane-q-user/profile.jpg',
@@ -71,12 +66,7 @@ const Login = () => {
 							);
 							// ...
 						})
-						.catch((error) => {
-							// An error occurred
-							// ...
-						});
-					navigate('/browse');
-					console.log(user);
+						.catch((error) => {});
 				})
 				.catch((error) => {
 					const errorCode = error.code;
