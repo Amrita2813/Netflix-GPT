@@ -10,6 +10,7 @@ import {
 import {auth} from '../utils/firebase';
 import {useDispatch} from 'react-redux';
 import {addUser} from '../utils/userSlice';
+import {IMG_BG_URL} from '../utils/constants';
 
 const Login = () => {
 	const name = useRef(null);
@@ -82,10 +83,7 @@ const Login = () => {
 		<div>
 			<Header />
 			<div className="absolute">
-				<img
-					src="https://assets.nflxext.com/ffe/siteui/vlv3/563192ea-ac0e-4906-a865-ba9899ffafad/6b2842d1-2339-4f08-84f6-148e9fcbe01b/IN-en-20231218-popsignuptwoweeks-perspective_alpha_website_small.jpg"
-					alt="bg-img"
-				/>
+				<img src={IMG_BG_URL} alt="bg-img" />
 			</div>
 
 			<form className="bg-black p-12 absolute w-3/12 my-36 mx-auto right-0 left-0 text-white bg-opacity-75 rounded-md">

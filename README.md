@@ -38,6 +38,7 @@ what we have built till now - - Header - Routing
 -   Update store with movies Data.
 -   Planning for Main Container & secondary Container.
 -   GPT Search Feature
+-   Multi language feature (created config slice for that)
 
 <!-- TMD API  -->
 
