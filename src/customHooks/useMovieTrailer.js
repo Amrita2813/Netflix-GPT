@@ -13,8 +13,8 @@ const useMovieTrailer = (movieId) => {
 		);
 		const movieData = await data.json();
 		const filteredTrailerCopy = movieData?.results?.filter((ele) => ele.type === 'Trailer');
-		const trailer = filteredTrailerCopy?.length ? filteredTrailerCopy[0] : movieData[0];
-		console.log(trailer.key);
+		const trailer = filteredTrailerCopy?.length ? filteredTrailerCopy[0] : movieData[1];
+
 		dispatch(addTrailerVideo(trailer));
 	};
 

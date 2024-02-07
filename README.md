@@ -31,6 +31,13 @@ what we have built till now - - Header - Routing
 -   created redux store with userSlice
 -   Implemented sign out
 -   Update profile
+-   Register TMDB API & create an app & get access token
+-   get data from TMDB now playing movies list API.
+-   Custom hook for Now Playing Movies.
+-   create MovieSlice
+-   Update store with movies Data.
+-   Planning for Main Container & secondary Container.
+-   GPT Search Feature
 
 <!-- TMD API  -->
 

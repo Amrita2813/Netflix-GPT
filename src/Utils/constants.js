@@ -8,6 +8,12 @@ export const IMG_CDN_URL = 'https://image.tmdb.org/t/p/w500';
 
 export const GET_NOW_PLAYING_MOVIES = 'https://api.themoviedb.org/3/movie/now_playing?page=1';
 
+export const GET_POPULAR_MOVIES =
+	'https://api.themoviedb.org/3/movie/popular?language=en-US&page=1';
+
+export const GET_TOP_RATED_MOVIES =
+	'https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1';
+
 export const TRAILER_VIDEO = 'https://api.themoviedb.org/3/movie/movie_id/videos?language=en-US';
 
 export const API_OPTIONS = {
@@ -18,3 +24,5 @@ export const API_OPTIONS = {
 			'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3ZGU4N2Y0N2Y4YTc1YTQ3YzRhOWYyYjEwNWQ2ZmEwNSIsInN1YiI6IjY1OWEzY2E1Yzk5NWVlMDA5NWNmMDVkNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.uRKeJ9xwT_vwkWDMSxOPj7UrBM-qAGnqasNmwFs4qEM',
 	},
 };
+
+export const IMG_CARD_CDN = 'https://image.tmdb.org/t/p/w200/';
