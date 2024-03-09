@@ -35,3 +35,5 @@ export const SUPPORTED_LANGUAGES = [
 	{identifier: 'hindi', name: 'Hindi'},
 	{identifier: 'spanish', name: 'Spanish'},
 ];
+
+export const GPT_KEY = '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';
